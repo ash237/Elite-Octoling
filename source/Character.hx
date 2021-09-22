@@ -134,8 +134,10 @@ class Character extends FlxSprite
 				healthIcon = json.healthicon;
 				singDuration = json.sing_duration;
 				flipX = !!json.flip_x;
-				if(json.no_antialiasing)
+				if(json.no_antialiasing) {
+					antialiasing = false;
 					noAntialiasing = true;
+				}
 
 				if(json.healthbar_colors != null && json.healthbar_colors.length > 2)
 					healthColorArray = json.healthbar_colors;
@@ -175,8 +177,8 @@ class Character extends FlxSprite
 		{
 			flipX = !flipX;
 
-			// Doesn't flip for BF, since his are already in the right place???
-			/*if (!curCharacter.startsWith('bf'))
+			/*// Doesn't flip for BF, since his are already in the right place???
+			if (!curCharacter.startsWith('bf'))
 			{
 				// var animArray
 				if(animation.getByName('singLEFT') != null && animation.getByName('singRIGHT') != null)
@@ -199,7 +201,6 @@ class Character extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		
 		if(!debugMode && animation.curAnim != null)
 		{
 			if(heyTimer > 0)

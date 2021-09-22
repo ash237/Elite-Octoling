@@ -1,0 +1,54 @@
+Check the references folder for visual references of the instructions provided here!
+
+Please make sure that when a song is loaded, all the spritesheets for that song are loaded too. I don't wanna risk desyncing anything from loading a sheet midway through.
+The stage layout is mostly based on week 5, so you can use that as your reference
+
+
+Song 1
+
+
+It starts with a video curscene that I haven't finished yet.
+Following the video cutscene is a doalogue cutscene. the source for it is in data, the portraits are all in one spritesheet. 
+The background uses the sheets Upper_Bop_A and Lower_Bop_A
+The opponent in this song uses all the sprites that start with p1 from the Ezili.png sheet
+The idle animation should bop one every other beat.
+
+
+
+
+Song 2 - Octo Amazone 
+
+
+It starts with a dialogue cutscene, also found in data
+The background uses the sheets Upper_Bop_B and Lower_Bop_B
+
+For the first 43 seconds the opponent sprites are all the ones that starts with p2
+The opponent idle animation now bops every beat
+On the exact beat that ends the opponent section around 43 seconds, the gun_pullout animation of the Ezili_Gun sheet should be triggered
+
+
+
+This will transition into a section with special mechanics:
+
+In this special section, the camera zooms out a bit and has both characters on screen in a fixed position.
+The opponent sprites during this section are an alternating loop between gun_loop_1 and gun_loop_2, each lasting 1 beat (like GF)
+If during this section the player misses, the opponent displays the gun_shot animation, and the player the BF_splat animation. Also the splat_hit.oog sound effect will be heard.
+This will do massive damage to the player. 90% of the total HP on hard mode, 50% on normal, and 30 % on easy
+Make sure the gun loop animations are still synced up with the beat after the gun_shot animation
+
+The camera position will trigger at 0:43, but the mechanics will trigger on the exact beat at 0:47 when the gun_pullout animation ends
+This section will end when the player's turn ends at around 01:01
+
+After this section, all of the opponent sprites are now the ones that start with p3, normal mechanics are restored
+
+
+
+The special section starts again at 1:29
+The only difference is that the opponent sings with the p3 sprites, when the opponent doesn't thing it's still the gun_loop_1 and gun_loop_2 sprites
+the special section ends when the player turn ends at around 01:56
+Exactly on this beat the Ezili_Dance animation should trigger. I haven't finished this one yet, but there is a placeholder that includes the first frame so you can place it.
+
+From then everything proceeds as normal, opponent sprites are still the p3 ones
+
+After the last note of the chart, the player sprite will play the BF_exit animation and the splat_exit.oog sound effect plays. Trigger them at the same time, they should sync up.
+

@@ -13,19 +13,25 @@ import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 #end
 
+import flash.media.Sound;
+
 using StringTools;
 
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
+	inline public static var VIDEO_EXT = "mp4";
 
 	#if MODS_ALLOWED
-		#if (haxe >= "4.0.0")
-		public static var customImagesLoaded:Map<String, FlxGraphic> = new Map();
-		#else
-		public static var customImagesLoaded:Map<String, FlxGraphic> = new Map<String, FlxGraphic>();
-		#end
+	#if (haxe >= "4.0.0")
+	public static var customImagesLoaded:Map<String, FlxGraphic> = new Map();
+	public static var customSoundsLoaded:Map<String, Sound> = new Map();
+	#else
+	public static var customImagesLoaded:Map<String, FlxGraphic> = new Map<String, FlxGraphic>();
+	public static var customSoundsLoaded:Map<String, Sound> = new Map<String, Sound>();
 	#end
+	#end
+
 	static var currentLevel:String;
 
 	static public function setCurrentLevel(name:String)
@@ -95,30 +101,84 @@ class Paths
 		return getPath('$key.lua', TEXT, library);
 	}
 
-	static public function sound(key:String, ?library:String)
+	static public function video(key:String)
 	{
-		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+		#if MODS_ALLOWED
+		var file:String = modsVideo(key);
+		if(FileSystem.exists(file)) {
+			return file;
+		}
+		#end
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
+	static public function sound(key:String, ?library:String):Dynamic
+	{
+		#if MODS_ALLOWED
+		var file:String = modsSounds(key);
+		if(FileSystem.exists(file)) {
+			if(!customSoundsLoaded.exists(file)) {
+				customSoundsLoaded.set(file, Sound.fromFile(file));
+			}
+			return customSoundsLoaded.get(file);
+		}
+		#end
+		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+	}
+	
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 	{
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
-	inline static public function music(key:String, ?library:String)
+	inline static public function music(key:String, ?library:String):Dynamic
 	{
+		#if MODS_ALLOWED
+		var file:String = modsMusic(key);
+		if(FileSystem.exists(file)) {
+			if(!customSoundsLoaded.exists(file)) {
+				customSoundsLoaded.set(file, Sound.fromFile(file));
+			}
+			return customSoundsLoaded.get(file);
+		}
+		#end
 		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
 	}
 
-	inline static public function voices(song:String)
+	inline static public function voices(song:String):Any
 	{
-		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
+		#if MODS_ALLOWED
+		var file:Sound = returnSongFile(modsSongs(song.toLowerCase().replace(' ', '-') + '/Voices'));
+		if(file != null) {
+			return file;
+		}
+		#end
+		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Voices.$SOUND_EXT';
 	}
 
-	inline static public function inst(song:String)
+	inline static public function inst(song:String):Any
 	{
-		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
+		#if MODS_ALLOWED
+		var file:Sound = returnSongFile(modsSongs(song.toLowerCase().replace(' ', '-') + '/Inst'));
+		if(file != null) {
+			return file;
+		}
+		#end
+		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Inst.$SOUND_EXT';
 	}
+
+	#if MODS_ALLOWED
+	inline static private function returnSongFile(file:String):Sound
+	{
+		if(FileSystem.exists(file)) {
+			if(!customSoundsLoaded.exists(file)) {
+				customSoundsLoaded.set(file, Sound.fromFile(file));
+			}
+			return customSoundsLoaded.get(file);
+		}
+		return null;
+	}
+	#end
 
 	inline static public function image(key:String, ?library:String):Dynamic
 	{
@@ -162,15 +222,15 @@ class Paths
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
 	{
-		if(OpenFlAssets.exists(Paths.getPath(key, type))) {
-			return true;
-		}
-
 		#if MODS_ALLOWED
 		if(FileSystem.exists(mods(key))) {
 			return true;
 		}
 		#end
+		
+		if(OpenFlAssets.exists(Paths.getPath(key, type))) {
+			return true;
+		}
 		return false;
 	}
 
@@ -203,6 +263,10 @@ class Paths
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
 		#end
 	}
+
+	inline static public function formatToSongPath(path:String) {
+		return path.toLowerCase().replace(' ', '-');
+	}
 	
 	#if MODS_ALLOWED
 	static private function addCustomGraphic(key:String):FlxGraphic {
@@ -220,15 +284,37 @@ class Paths
 	inline static public function mods(key:String) {
 		return 'mods/' + key;
 	}
+
+	inline static public function modsJson(key:String) {
+		return mods('data/' + key + '.json');
+	}
+
+	inline static public function modsVideo(key:String) {
+		return mods('videos/' + key + '.' + VIDEO_EXT);
+	}
+
+	inline static public function modsMusic(key:String) {
+		return mods('music/' + key + '.' + SOUND_EXT);
+	}
+
+	inline static public function modsSounds(key:String) {
+		return mods('sounds/' + key + '.' + SOUND_EXT);
+	}
+
+	inline static public function modsSongs(key:String) {
+		return mods('songs/' + key + '.' + SOUND_EXT);
+	}
+
 	inline static public function modsImages(key:String) {
 		return mods('images/' + key + '.png');
 	}
-	
+
 	inline static public function modsXml(key:String) {
 		return mods('images/' + key + '.xml');
 	}
+
 	inline static public function modsTxt(key:String) {
-		return mods('images/' + key + '.xml');
+		return mods('images/' + key + '.txt');
 	}
 	#end
 }
