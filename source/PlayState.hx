@@ -3048,10 +3048,15 @@ class PlayState extends MusicBeatState
 		var pixelShitPart1:String = "";
 		var pixelShitPart2:String = '';
 
-		if (curStage.startsWith('school'))
-		{
+		if (curStage.startsWith('school')) {
 			pixelShitPart1 = 'weeb/pixelUI/';
 			pixelShitPart2 = '-pixel';
+		}
+
+		if ( getSpecialSongs().contains(curSong.toLowerCase()) ) {
+			switch (daRating) {
+				case "sick": daRating = "fresh";
+			}
 		}
 
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
@@ -3159,6 +3164,10 @@ class PlayState extends MusicBeatState
 		});
 
 		curSection += 1;
+	}
+
+	private function getSpecialSongs():Array<String> {
+		return CoolUtil.coolTextFile(Paths.txt('songUseFreshData'));
 	}
 
 	private function keyShit():Void
