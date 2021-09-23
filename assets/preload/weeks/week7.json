@@ -1,0 +1,22 @@
+{
+	"songs": [
+		["OnTheHook", "dad", [195, 195, 195]],
+		["OctoAmazone", "dad", [195, 195, 195]]
+	],
+
+	"weekCharacters": [
+		"",
+		"bf",
+		"gf"
+	],
+
+	"weekBackground": "stage",
+
+	"storyName": "inkling battle",
+	"weekBefore": "week6",
+	"weekName": "Week 7",
+	"startUnlocked": true,
+
+	"hideStoryMode": false,
+	"hideFreeplay": false
+}

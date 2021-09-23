@@ -601,6 +601,32 @@ class PlayState extends MusicBeatState
 					bg.antialiasing = false;
 					add(bg);
 				}
+			case 'splatoon': //Week 7
+				var bg:BGSprite = new BGSprite('week7/bgWalls', -1000, -500, 0.2, 0.2, null);
+					bg.setGraphicSize(Std.int(bg.width * 0.8));
+					bg.updateHitbox();
+				add(bg);
+
+				if(!ClientPrefs.lowQuality) {
+					upperBoppers = new BGSprite('week7/Upper_Bop_A', -240, -90, 0.33, 0.33, ['Upper Crowd Bob'], true);
+					upperBoppers.setIdle('Upper Crowd Bob');
+					upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
+					upperBoppers.updateHitbox();
+					add(upperBoppers);
+
+					var bgEscalator:BGSprite = new BGSprite('week7/bgEscalator', -1100, -600, 0.3, 0.3);
+					bgEscalator.setGraphicSize(Std.int(bgEscalator.width * 0.9));
+					bgEscalator.updateHitbox();
+					add(bgEscalator);
+				}
+
+				bottomBoppers = new BGSprite('week7/Lower_Bop_A', -300, 140, 0.9, 0.9, ['Lower_Bop']);
+				bottomBoppers.setGraphicSize(Std.int(bottomBoppers.width * 1));
+				bottomBoppers.updateHitbox();
+				// add(bottomBoppers);
+
+				var fgSnow:BGSprite = new BGSprite('week7/fgSnow', -600, 700);
+				add(fgSnow);
 		}
 
 		#if LUA_ALLOWED
