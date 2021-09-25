@@ -1,0 +1,27 @@
+{
+    "objects": [
+        {
+            "position": [0, 0],
+
+            "isCharacter": true,
+            "isPlayer": false,
+            "character": "dad",
+
+            "properties": {
+                "doAfter": "test"
+            }
+        }, 
+        {
+            "position": [100, 0],
+            "path": "characters/Ezili-gun",
+
+            "properties": {
+                "doAfter": "addToSpecialChars",
+                "animations": [
+                    "gun_loop1",
+                    "gun_loop2"
+                ]
+            }
+        }
+    ]
+}

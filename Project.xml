@@ -49,6 +49,9 @@
 	<define name="ACHIEVEMENTS_ALLOWED" />
 	<define name="VIDEOS_ALLOWED" if="web || windows" />
 
+	<!-- LOADING STATE ALLOWED -->
+	<define name="LOADING_ALLOWED" if="desktop" />
+
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
@@ -96,7 +99,7 @@
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<!-- <template path='mods' /> -->
 	
-	<!-- assets path="CHANGELOG.md" rename='changelog.txt' --/>
+	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
 
 	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
 		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO
@@ -126,6 +129,8 @@
 
 	<!--In case you want to use nape with flixel-->
 	<!--<haxelib name="nape-haxe4" />-->
+	
+	<haxelib name="notifier" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 

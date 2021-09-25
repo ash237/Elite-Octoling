@@ -1,0 +1,70 @@
+{
+    "objects": [
+        {
+            "position": [0, 0],
+
+            "isCharacter": true,
+            "isPlayer": false,
+            "character": "dad",
+
+            "properties": {
+                "doAfter": "test"
+            }
+        },
+        {
+            "position": [100, 0],
+
+            "isCharacter": true,
+            "isPlayer": false,
+            "character": "dad",
+
+            "properties": {
+                "doAfter": "test"
+            }
+        },
+        {
+            "position": [200, 0],
+
+            "isCharacter": true,
+            "isPlayer": false,
+            "character": "dad",
+
+            "properties": {
+                "doAfter": "test"
+            }
+        },
+        {
+            "position": [0, 0],
+
+            "isCharacter": true,
+            "isPlayer": false,
+            "character": "dad",
+
+            "properties": {
+                "doAfter": "test"
+            }
+        },
+        {
+            "position": [300, 0],
+
+            "isCharacter": true,
+            "isPlayer": false,
+            "character": "dad",
+
+            "properties": {
+                "doAfter": "test"
+            }
+        },
+        {
+            "position": [400, 0],
+
+            "isCharacter": true,
+            "isPlayer": false,
+            "character": "dad",
+
+            "properties": {
+                "doAfter": "test"
+            }
+        }
+    ]
+}

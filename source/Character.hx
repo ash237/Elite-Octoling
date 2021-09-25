@@ -73,17 +73,34 @@ class Character extends FlxSprite
 	public var healthColorArray:Array<Int> = [255, 0, 0];
 
 	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
-	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false)
+	private var graphicLoadedCallback:Void->Void;
+	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?autoload:Bool = true)
 	{
 		super(x, y);
 
+		this.curCharacter = character;
+		this.isPlayer = isPlayer;
+
+		if (autoload) {
+			loadCharacter();
+		}
+	}
+
+	public function setLoadedCallback(?GLCallback:Void->Void = null) {
+		try { graphicLoadedCallback = GLCallback; } catch(e) {}
+	}
+
+	override function graphicLoaded():Void {
+		if (graphicLoadedCallback != null) graphicLoadedCallback();
+	}
+
+	function loadCharacter() {
 		#if (haxe >= "4.0.0")
 		animOffsets = new Map();
 		#else
 		animOffsets = new Map<String, Array<Dynamic>>();
 		#end
-		curCharacter = character;
-		this.isPlayer = isPlayer;
+
 		antialiasing = ClientPrefs.globalAntialiasing;
 
 		var library:String = null;
