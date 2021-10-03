@@ -999,6 +999,12 @@ class PlayState extends MusicBeatState
 
 				trace(dataObjects);
 			}
+			
+			var sLSS:SpriteLoadingSubState = new SpriteLoadingSubState();
+				sLSS.setToLoadObjects(dataObjects);
+				sLSS.setCallback(startSong);
+				sLSS.init(this);
+			secondSubState = sLSS;
 		}
 		#end
 
@@ -1083,14 +1089,6 @@ class PlayState extends MusicBeatState
 			DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			#end
 		}
-
-		#if (sys && LOADING_ALLOWED)
-		var sLSS:SpriteLoadingSubState = new SpriteLoadingSubState();
-			sLSS.setToLoadObjects(dataObjects);
-			sLSS.setCallback(startSong);
-			sLSS.init(this);
-		secondSubState = sLSS;
-		#end
 
 		super.create();
 	}
