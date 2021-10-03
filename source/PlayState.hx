@@ -957,56 +957,56 @@ class PlayState extends MusicBeatState
 		
 
 		// #if (LOADING_ALLOWED)
-		#if (sys && LOADING_ALLOWED)
-		var _songg = SONG.song.toLowerCase();
-		var objLoadingPath = Paths.getPreloadPath('data/' + Paths.formatToSongPath(_songg) + '/preloadObjects.json');
-		var _loadData:Dynamic;
-		var dataObjects:Array<ObjectProperties> = [];
+		// #if (sys && LOADING_ALLOWED)
+		// var _songg = SONG.song.toLowerCase();
+		// var objLoadingPath = Paths.getPreloadPath('data/' + Paths.formatToSongPath(_songg) + '/preloadObjects.json');
+		// var _loadData:Dynamic;
+		// var dataObjects:Array<ObjectProperties> = [];
 
-		trace(objLoadingPath);
-		if (FileSystem.exists(objLoadingPath)) {
-			var dataJson = sys.io.File.getContent(objLoadingPath);
-			var _loadData = Json.parse(dataJson);
-			var cb:Map<String, Dynamic->Void> = SpriteLoadingSubState.spriteLoadedCallbacks;
+		// trace(objLoadingPath);
+		// if (FileSystem.exists(objLoadingPath)) {
+		// 	var dataJson = sys.io.File.getContent(objLoadingPath);
+		// 	var _loadData = Json.parse(dataJson);
+		// 	var cb:Map<String, Dynamic->Void> = SpriteLoadingSubState.spriteLoadedCallbacks;
 
-			if (_loadData.objects != null) {
-				var objs:Array<Dynamic> = cast _loadData.objects;
+		// 	if (_loadData.objects != null) {
+		// 		var objs:Array<Dynamic> = cast _loadData.objects;
 
-				for (i in 0...objs.length) {
-					var j = objs[i];
-					var obj:ObjectProperties = cast j;
-						obj.id = i + 1;
-						obj.properties = cast j.properties;
+		// 		for (i in 0...objs.length) {
+		// 			var j = objs[i];
+		// 			var obj:ObjectProperties = cast j;
+		// 				obj.id = i + 1;
+		// 				obj.properties = cast j.properties;
 
-					if (j.properties != null) {
-						if (j.properties.doAfter != null) {
-							if (cb.exists(j.properties.doAfter)) {
-								obj.onLoad = function() {
-									var _cb = cb.get(j.properties.doAfter);
-										_cb(obj.res);
-									SpriteLoadingSubState.spriteLoaded(obj.id);
-								};
-							}
-						} else {
-							obj.onLoad = function() {
-								SpriteLoadingSubState.spriteLoaded(obj.id);
-							}
-						}
-					}
+		// 			if (j.properties != null) {
+		// 				if (j.properties.doAfter != null) {
+		// 					if (cb.exists(j.properties.doAfter)) {
+		// 						obj.onLoad = function() {
+		// 							var _cb = cb.get(j.properties.doAfter);
+		// 								_cb(obj.res);
+		// 							SpriteLoadingSubState.spriteLoaded(obj.id);
+		// 						};
+		// 					}
+		// 				} else {
+		// 					obj.onLoad = function() {
+		// 						SpriteLoadingSubState.spriteLoaded(obj.id);
+		// 					}
+		// 				}
+		// 			}
 
-					dataObjects.push(obj);
-				}
+		// 			dataObjects.push(obj);
+		// 		}
 
-				trace(dataObjects);
-			}
-			
-			var sLSS:SpriteLoadingSubState = new SpriteLoadingSubState();
-				sLSS.setToLoadObjects(dataObjects);
-				sLSS.setCallback(startSong);
-				sLSS.init(this);
-			secondSubState = sLSS;
-		}
-		#end
+		// 		trace(dataObjects);
+		// 	}
+
+		// 	var sLSS:SpriteLoadingSubState = new SpriteLoadingSubState();
+		// 		sLSS.setToLoadObjects(dataObjects);
+		// 		sLSS.setCallback(startSong);
+		// 		sLSS.init(this);
+		// 	secondSubState = sLSS;
+		// }
+		// #end
 
 		var startSong = function():Void {
 			var daSong:String = Paths.formatToSongPath(curSong);
