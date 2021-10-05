@@ -88,6 +88,11 @@ class DialogueBox extends FlxSpriteGroup
 				var face:FlxSprite = new FlxSprite(320, 170).loadGraphic(Paths.image('weeb/spiritFaceForward'));
 				face.setGraphicSize(Std.int(face.width * 6));
 				add(face);
+			case 'on-the-hook':
+				hasDialog = true;
+				box.frames = Paths.getSparrowAtlas('weeb/speech_bubble');
+				box.animation.addByPrefix('normalOpen', 'Speech Bubble Middle Open', 24, false);
+				box.animation.addByPrefix('normal', 'speech bubble middle', 24, false);
 		}
 
 		this.dialogueList = dialogueList;
