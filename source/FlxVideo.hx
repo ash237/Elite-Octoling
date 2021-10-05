@@ -11,6 +11,7 @@ import flixel.FlxBasic;
 import flixel.FlxG;
 
 class FlxVideo extends FlxBasic {
+
 	#if VIDEOS_ALLOWED
 	public var finishCallback:Void->Void = null;
 	

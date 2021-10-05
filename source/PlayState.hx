@@ -300,7 +300,7 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		curStage = PlayState.SONG.stage;
-		trace('stage is: ' + curStage);
+
 		if(PlayState.SONG.stage == null || PlayState.SONG.stage.length < 1) {
 			switch (songName)
 			{
@@ -318,6 +318,8 @@ class PlayState extends MusicBeatState
 					curStage = 'school';
 				case 'thorns':
 					curStage = 'schoolEvil';
+				case 'splatoon' | 'onthehook':
+					curStage = 'splatoon';
 				default:
 					curStage = 'stage';
 			}
@@ -335,6 +337,17 @@ class PlayState extends MusicBeatState
 
 		backgroundGroup = new FlxTypedGroup<FlxSprite>();
 		foregroundGroup = new FlxTypedGroup<FlxSprite>();
+
+		switch(songName) {
+			case "on-the-hook":
+				curStage = "splatoon";
+			default:
+				curStage = PlayState.SONG.stage;
+		}
+
+		trace('stage: ' + curStage);
+		trace('song: ' + songName);
+
 		switch (curStage)
 		{
 			case 'stage': //Week 1
@@ -767,8 +780,10 @@ class PlayState extends MusicBeatState
 			dialogueJson = DialogueBoxPsych.parseDialogue(file);
 		}
 
-		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); //Checks for vanilla/Senpai dialogue
+		var file:String = Paths.txt(songName + '/' + 'dialogue'); //Checks for vanilla/Senpai dialogue
 		if (OpenFlAssets.exists(file)) {
+			trace("found dialogue");
+
 			dialogue = CoolUtil.coolTextFile(file);
 		}
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
@@ -1069,7 +1084,9 @@ class PlayState extends MusicBeatState
 					case 'senpai' | 'roses' | 'thorns':
 						if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
 						schoolIntro(doof);
-
+					case "on-the-hook":
+						videoIntro('cutscene', doof);
+						//schoolIntro(doof);
 					default:
 						startCountdown();
 				}
@@ -1149,7 +1166,7 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function videoIntro(name:String):Void {
+	public function videoIntro(name:String, ?dia:DialogueBox):Void {
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
 		var fileName:String = #if MODS_ALLOWED Paths.mods('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
@@ -1178,7 +1195,11 @@ class PlayState extends MusicBeatState
 
 			(new FlxVideo(fileName)).finishCallback = function() {
 				remove(bg);
-				startCountdown();
+
+				if(curStage == "splatoon" && dia != null)
+					schoolIntro(dia);
+				else
+					startCountdown();
 			}
 			return;
 		} else {
