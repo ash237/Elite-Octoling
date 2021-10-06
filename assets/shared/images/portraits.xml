@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="portraits.png">
+	<!-- Created with Adobe Animate version 19.2.1.408 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Agent40000" x="9" y="9" width="273" height="256"/>
+	<SubTexture name="Agent4_Shook0000" x="287" y="9" width="333" height="262"/>
+	<SubTexture name="Ezili0000" x="9" y="276" width="446" height="508"/>
+	<SubTexture name="Ezili_Smile0000" x="460" y="276" width="446" height="508"/>
+	<SubTexture name="Ezili_Thought0000" x="9" y="789" width="404" height="584"/>
+	<SubTexture name="Octoling0000" x="418" y="789" width="368" height="380"/>
+	<SubTexture name="trooper0000" x="9" y="1378" width="331" height="350"/>
+</TextureAtlas>

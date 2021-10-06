@@ -1328,6 +1328,8 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
+		trace("started song!");
+
 		inCutscene = false;
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
 		if(ret != FunkinLua.Function_Stop) {
