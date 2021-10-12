@@ -279,6 +279,16 @@ class Character extends FlxSprite
 					playAnim('danceLeft' + idleSuffix);
 			}
 			else if(animation.getByName('idle' + idleSuffix) != null) {
+				if (curCharacter.toLowerCase() == 'ezili') {
+					danced = !danced;
+					if (danced)
+						playAnim('idle' + idleSuffix);
+				} else if (curCharacter.toLowerCase() == 'bf-agent') {
+					/*if (animation.getByName('singShot') != null) {
+						if (!animation.curAnim.name.startsWith('singShot') || animation.curAnim.name.startsWith('singShot')) //&& animation.curAnim.finished)*/
+							playAnim('idle' + idleSuffix);
+					//}
+				} else
 					playAnim('idle' + idleSuffix);
 			}
 		}

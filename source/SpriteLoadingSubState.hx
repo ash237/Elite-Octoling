@@ -95,7 +95,7 @@ class SpriteLoadingSubState extends FlxSubState {
 
     private function loadingComplete() {
         trace("Done loading!");
-    
+        
         new FlxTimer().start(2, function(t:FlxTimer) {
             if (_callback != null) _callback();
             this.close();

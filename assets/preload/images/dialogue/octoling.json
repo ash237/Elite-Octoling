@@ -1,0 +1,24 @@
+{
+	"dialogue_pos": "right",
+	"position": [
+		0,
+		0
+	],
+	"scale": 1,
+	"animations": [
+		{
+			"anim": "talk",
+			"loop_offsets": [
+				104,
+				-75
+			],
+			"idle_offsets": [
+				104,
+				-75
+			],
+			"loop_name": "Octoling",
+			"idle_name": "Octoling"
+		}
+	],
+	"image": "portraits"
+}

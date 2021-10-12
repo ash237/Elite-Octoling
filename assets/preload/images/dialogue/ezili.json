@@ -1,0 +1,50 @@
+{
+	"dialogue_pos": "left",
+	"position": [
+		0,
+		0
+	],
+	"scale": 1,
+	"animations": [
+		{
+			"anim": "talk",
+			"loop_offsets": [
+				-58,
+				-4
+			],
+			"idle_offsets": [
+				-58,
+				-4
+			],
+			"loop_name": "Ezili0",
+			"idle_name": "Ezili0"
+		},
+		{
+			"loop_name": "Ezili_Smile",
+			"idle_offsets": [
+				-58,
+				-4
+			],
+			"idle_name": "Ezili_Smile",
+			"anim": "smile",
+			"loop_offsets": [
+				-58,
+				-4
+			]
+		},
+		{
+			"loop_name": "Ezili_Thought",
+			"idle_offsets": [
+				-70,
+				20
+			],
+			"idle_name": "Ezili_Thought",
+			"anim": "thought",
+			"loop_offsets": [
+				-70,
+				20
+			]
+		}
+	],
+	"image": "portraits"
+}

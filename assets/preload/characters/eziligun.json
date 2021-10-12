@@ -1,0 +1,67 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				-22,
+				-26
+			],
+			"indices": [],
+			"fps": 30,
+			"anim": "gun1",
+			"loop": false,
+			"name": "gun_loop1"
+		},
+		{
+			"offsets": [
+				-13,
+				-27
+			],
+			"indices": [],
+			"fps": 30,
+			"anim": "shoot",
+			"loop": false,
+			"name": "gun_shot"
+		},
+		{
+			"offsets": [
+				69,
+				341
+			],
+			"indices": [],
+			"fps": 30,
+			"anim": "idle",
+			"loop": false,
+			"name": "gun_pullout"
+		},
+		{
+			"offsets": [
+				-1,
+				-28
+			],
+			"indices": [],
+			"fps": 30,
+			"anim": "gun2",
+			"loop": false,
+			"name": "gun_loop2"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Ezili_gun",
+	"position": [
+		-100,
+		-120
+	],
+	"healthicon": "ezili",
+	"flip_x": false,
+	"healthbar_colors": [
+		175,
+		102,
+		206
+	],
+	"camera_position": [
+		-30,
+		70
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

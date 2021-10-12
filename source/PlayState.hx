@@ -249,6 +249,16 @@ class PlayState extends MusicBeatState
 	public var secondSubState:SpriteLoadingSubState = null;
 	public static var specialCharacters:Map<Int, Dynamic> = [];
 
+	var eziliGun:Character;
+	var eziliGunDanced:Bool = false;
+	var eziliGunActive:Bool = false;
+	var eziliGunShot:Bool = false;
+	var danc:Bool = false;
+	var myNuts:String = '';
+
+	var eziliDance1:FlxSprite;
+	var eziliDance2:FlxSprite;
+	var bfShouldDance:Bool = true;
 	override public function create()
 	{
 		specialCharacters = [];
@@ -339,7 +349,7 @@ class PlayState extends MusicBeatState
 		foregroundGroup = new FlxTypedGroup<FlxSprite>();
 
 		switch(songName) {
-			case "on-the-hook":
+			case "on-the-hook" | 'octo-amazone':
 				curStage = "splatoon";
 			default:
 				curStage = PlayState.SONG.stage;
@@ -621,31 +631,43 @@ class PlayState extends MusicBeatState
 					add(bg);
 				}
 			case 'splatoon': //Week 7
+				defaultCamZoom = 0.76;
 				var bg:BGSprite = new BGSprite('week7/bgWalls', -1000, -500, 0.2, 0.2, null);
 					bg.setGraphicSize(Std.int(bg.width * 0.8));
 					bg.updateHitbox();
 				add(bg);
-
+				
 				if(!ClientPrefs.lowQuality) {
-					upperBoppers = new BGSprite('week7/Upper_Bop_A', -240, -105, 0.3, 0.3, ['Upper Crowd Bob'], true);
+					var ewe:String = 'A';
+					if (SONG.song.toLowerCase() == 'octo amazone') {
+						ewe = 'B';
+					}
+					upperBoppers = new BGSprite('week7/Upper_Bop_' + ewe, 40, -105, 0.5, 0.5, ['Upper Crowd Bob']);
 					upperBoppers.setIdle('Upper Crowd Bob');
 					upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
 					upperBoppers.updateHitbox();
 					add(upperBoppers);
+					
 
-					var bgEscalator:BGSprite = new BGSprite('week7/bgEscalator', -1100, -600, 0.35, 0.35);
+					var bgEscalator:BGSprite = new BGSprite('week7/bgEscalator', -900, -600, 0.55, 0.55);
 					bgEscalator.setGraphicSize(Std.int(bgEscalator.width * 0.9));
 					bgEscalator.updateHitbox();
 					add(bgEscalator);
 				}
 
-				bottomBoppers = new BGSprite('week7/Lower_Bop_A', -300, 140, 0.9, 0.9, ['Lower_Bop']);
+				var ewe:String = 'A';
+				if (SONG.song.toLowerCase() == 'octo amazone') {
+					ewe = 'B';
+				}
+
+				bottomBoppers = new BGSprite('week7/Lower_Bop_' + ewe, -300, 140, 0.9, 0.9, ['Lower_Bop']);
 				bottomBoppers.setGraphicSize(Std.int(bottomBoppers.width * 1));
 				bottomBoppers.updateHitbox();
-				// add(bottomBoppers);
+				 add(bottomBoppers);
 
 				var fgSnow:BGSprite = new BGSprite('week7/fgSnow', -600, 700);
 				add(fgSnow);
+				
 		}
 
 		#if LUA_ALLOWED
@@ -758,6 +780,41 @@ class PlayState extends MusicBeatState
 			case 'schoolEvil':
 				var evilTrail = new FlxTrail(dad, null, 4, 24, 0.3, 0.069);
 				add(evilTrail);
+			case 'splatoon':
+				dad.x -= 160;
+				dad.y -= 40;
+				boyfriend.x += 760;
+				gf.x += 160;
+				gf.y -= 60;
+				eziliGun = new Character(dad.x - 40, dad.y - 20, 'eziligun');
+				eziliGun.alpha = 0;
+				add(eziliGun);
+				eziliGun.playAnim('idle', true);
+				
+				//i got lazy here ; n ;
+
+				eziliDance1 = new FlxSprite(dad.x - 200, dad.y - 700);
+				eziliDance1.frames = Paths.getSparrowAtlas('Ezili_Dance', 'shared');
+				eziliDance1.animation.addByPrefix('idle', 'Ezili_Dance', 30, false);
+				add(eziliDance1);
+				eziliDance1.animation.play('idle');
+				//eziliDance1.alpha = 0;
+
+				eziliDance2 = new FlxSprite(dad.x - 120, dad.y - 750);
+				eziliDance2.frames = Paths.getSparrowAtlas('Ezili_Dance2', 'shared');
+				eziliDance2.animation.addByPrefix('idle', 'Ezili_Dance2', 30, false);
+				add(eziliDance2);
+				eziliDance2.animation.play('idle');
+				//eziliDance2.alpha = 0;
+
+				new FlxTimer().start(0.2, function(tmr:FlxTimer)
+				{
+					eziliGun.playAnim('gun1', true);
+					eziliDance2.alpha = 0;
+					eziliDance1.alpha = 0;
+				});
+				
+				GameOverSubstate.characterName = 'bf-agent';
 		}
 
 		add(gfGroup);
@@ -1087,6 +1144,8 @@ class PlayState extends MusicBeatState
 					case "on-the-hook":
 						videoIntro('cutscene', doof);
 						//schoolIntro(doof);
+					case 'octo-amazone':
+						startDialogue(dialogueJson);
 					default:
 						startCountdown();
 				}
@@ -1197,7 +1256,7 @@ class PlayState extends MusicBeatState
 				remove(bg);
 
 				if(curStage == "splatoon" && dia != null)
-					schoolIntro(dia);
+					startDialogue(dialogueJson);
 				else
 					startCountdown();
 			}
@@ -2279,6 +2338,27 @@ class PlayState extends MusicBeatState
 
 		if (generatedMusic)
 		{
+			if (curStage == 'splatoon') {
+				if (!danc) {
+					if (eziliGunActive) {
+						if (dad.animation.curAnim.name.startsWith('idle')) {
+							dad.alpha = 0;
+							eziliGun.alpha = 1;
+						} else {
+							dad.alpha = 1;
+							eziliGun.alpha = 0;
+						}
+					} else if (eziliGun.animation.curAnim.name == 'idle') {
+						dad.alpha = 0;
+						eziliGun.alpha = 1;
+					} else{
+						dad.alpha = 1;
+						eziliGun.alpha = 0;
+					}
+				} else {
+					dad.alpha = 0;
+				}
+			}
 			var fakeCrochet:Float = (60 / SONG.bpm) * 1000;
 			notes.forEachAlive(function(daNote:Note)
 			{
@@ -2379,7 +2459,8 @@ class PlayState extends MusicBeatState
 							case 3:
 								animToPlay = 'singRIGHT';
 						}
-						dad.playAnim(animToPlay + altAnim, true);
+						
+							dad.playAnim(animToPlay + altAnim + myNuts, true);
 					}
 
 					dad.holdTimer = 0;
@@ -2437,22 +2518,38 @@ class PlayState extends MusicBeatState
 								});
 
 								if(!daNote.ignoreNote) {
-									health -= 0.0475; //For testing purposes
+									 //For testing purposes
 									songMisses++;
 									vocals.volume = 0;
 									RecalculateRating();
-
-									switch (daNote.noteData % 4)
-									{
-										case 0:
-											boyfriend.playAnim('singLEFTmiss', true);
-										case 1:
-											boyfriend.playAnim('singDOWNmiss', true);
-										case 2:
-											boyfriend.playAnim('singUPmiss', true);
-										case 3:
-											boyfriend.playAnim('singRIGHTmiss', true);
+									if (eziliGunActive) {
+										eziliGun.playAnim('shoot', true);
+										eziliGunShot = true;
+										switch (storyDifficulty) {
+											case 2:
+												health -= 1.8;
+											case 1:
+												health -= 1;
+											case 0:
+												health -= 0.5;
+										}
+										FlxG.sound.play(Paths.sound('splat_hit', 'shared'));
+										boyfriend.playAnim('singShot', true);
+									} else {
+										health -= 0.0475;
+										switch (daNote.noteData % 4)
+										{
+											case 0:
+												boyfriend.playAnim('singLEFTmiss', true);
+											case 1:
+												boyfriend.playAnim('singDOWNmiss', true);
+											case 2:
+												boyfriend.playAnim('singUPmiss', true);
+											case 3:
+												boyfriend.playAnim('singRIGHTmiss', true);
+										}
 									}
+									
 									callOnLuas('noteMiss', [daNote.noteData, daNote.noteType]);
 								}
 							}
@@ -3113,8 +3210,7 @@ class PlayState extends MusicBeatState
 
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
 		coolText.screenCenter();
-		coolText.x = FlxG.width * 0.55;
-		//
+		coolText.x = FlxG.width * 0.85;
 
 		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
@@ -3418,7 +3514,35 @@ class PlayState extends MusicBeatState
 	{
 		if (!boyfriend.stunned)
 		{
-			health -= 0.04;
+			if (eziliGunActive) {
+				eziliGun.playAnim('shoot', true);
+				eziliGunShot = true;
+				switch (storyDifficulty) {
+					case 2:
+						health -= 1.8;
+					case 1:
+						health -= 1;
+					case 0:
+						health -= 0.5;
+				}
+				FlxG.sound.play(Paths.sound('splat_hit', 'shared'));
+				boyfriend.playAnim('singShot', true);
+			} else {
+				health -= 0.04;
+				switch (direction)
+				{
+					case 0:
+						boyfriend.playAnim('singLEFTmiss', true);
+					case 1:
+						boyfriend.playAnim('singDOWNmiss', true);
+					case 2:
+						boyfriend.playAnim('singUPmiss', true);
+					case 3:
+						boyfriend.playAnim('singRIGHTmiss', true);
+				}
+			}
+
+			
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
 				gf.playAnim('sad');
@@ -3444,18 +3568,9 @@ class PlayState extends MusicBeatState
 				boyfriend.stunned = false;
 			});*/
 
-			switch (direction)
-			{
-				case 0:
-					boyfriend.playAnim('singLEFTmiss', true);
-				case 1:
-					boyfriend.playAnim('singDOWNmiss', true);
-				case 2:
-					boyfriend.playAnim('singUPmiss', true);
-				case 3:
-					boyfriend.playAnim('singRIGHTmiss', true);
-			}
+			
 			vocals.volume = 0;
+			
 		}
 	}
 
@@ -3528,7 +3643,8 @@ class PlayState extends MusicBeatState
 				case 3:
 					animToPlay = 'singRIGHT';
 			}
-			boyfriend.playAnim(animToPlay + daAlt, true);
+			if (boyfriend.animation.curAnim.name != 'singShot' || boyfriend.animation.curAnim.name == 'singShot' &&  boyfriend.animation.curAnim.finished)
+				boyfriend.playAnim(animToPlay + daAlt, true);
 			if(note.noteType == 'Hey!') {
 				if(boyfriend.animOffsets.exists('hey')) {
 					boyfriend.playAnim('hey', true);
@@ -3810,6 +3926,33 @@ class PlayState extends MusicBeatState
 	var lightningOffset:Int = 8;
 
 	var lastBeatHit:Int = -1;
+	function eziliGunDance() {
+		if (eziliGunShot) {
+			eziliGunShot = false;
+		} else {
+			if (!eziliGunDanced)
+				eziliGun.playAnim('gun1');
+			else
+				eziliGun.playAnim('gun2');
+			eziliGunDanced = !eziliGunDanced;
+		}
+	}
+
+	function enterEziliGunMode():Void {
+		isCameraOnForcedPos = true;
+		defaultCamZoom = 0.54;
+		camFollow.x = 920;
+		camFollow.y = 280;
+		eziliGunDance();
+		eziliGunActive = true;
+	}
+
+	function leaveEziliGunMode():Void {
+		eziliGunActive = false;
+		defaultCamZoom = 0.8;
+		isCameraOnForcedPos = false;
+		eziliGunShot = false;
+	}
 	override function beatHit()
 	{
 		super.beatHit();
@@ -3860,14 +4003,16 @@ class PlayState extends MusicBeatState
 		if(curBeat % 2 == 0) {
 			if (boyfriend.animation.curAnim.name != null && !boyfriend.animation.curAnim.name.startsWith("sing") && !boyfriend.specialAnim)
 			{
-				boyfriend.dance();
+				if (boyfriend.animation.curAnim.name != 'singShot' || boyfriend.animation.curAnim.name == 'singShot' &&  boyfriend.animation.curAnim.finished)
+					if (boyfriend.animation.curAnim.name != 'exit' && bfShouldDance)
+						boyfriend.dance();
 			}
 			if (dad.animation.curAnim.name != null && !dad.animation.curAnim.name.startsWith("sing") && !dad.stunned)
 			{
-				dad.dance();
+					dad.dance();
 			}
 		} else if(dad.danceIdle && dad.animation.curAnim.name != null && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing") && !dad.stunned) {
-			dad.dance();
+				dad.dance();
 		}
 
 		switch (curStage)
@@ -3877,6 +4022,12 @@ class PlayState extends MusicBeatState
 					bgGirls.dance();
 				}
 
+			case 'splatoon':
+				if(!ClientPrefs.lowQuality) {
+					upperBoppers.dance(true);
+				}
+
+				bottomBoppers.dance(true);
 			case 'mall':
 				if(!ClientPrefs.lowQuality) {
 					upperBoppers.dance(true);
@@ -3927,6 +4078,79 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('curBeat', curBeat);
 		callOnLuas('onBeatHit', []);
+
+		switch (SONG.song.toLowerCase()) {
+			case 'octo amazone':
+				if (eziliGunActive) {
+					eziliGunDance();
+				}
+				switch (curBeat) {
+					case 104:
+						//do the gun + camera
+						isCameraOnForcedPos = true;
+						defaultCamZoom = 0.67;
+						camFollow.x = 650;
+						camFollow.y = 340;
+						eziliGun.playAnim('idle', true);
+						eziliGun.alpha = 1;
+						dad.alpha = 0;
+						dad.idleSuffix = '-alt';
+						myNuts = '-alt';
+					case 112:
+						//eziliGunDance();
+						//eziliGunActive = true;
+						enterEziliGunMode();
+						//start loop shoot + mechanic
+					case 144:
+						//stop
+						leaveEziliGunMode();
+					case 208:
+						//start loop shot mechanic again
+						enterEziliGunMode();
+					case 272:
+						//stop + super cool dance animation
+						leaveEziliGunMode();
+						//dad.visible = false;
+						danc = true;
+						dad.alpha = 0;
+						eziliGun.alpha = 0;
+						eziliDance1.alpha = 1;
+						isCameraOnForcedPos = true;
+						eziliDance1.animation.play('idle', true);
+						eziliDance1.animation.finishCallback = function(name:String) {
+							eziliDance1.alpha = 0;
+							eziliDance2.alpha = 1;
+							eziliDance2.animation.play('idle', true);
+							/*eziliDance2.animation.finishCallback = function(name:String) {
+								
+								//dad.visible = true;
+							}*/
+						}
+						defaultCamZoom = 0.54;
+						//camFollow.x = 400;
+						//camFollow.y = 340;
+						camFollow.x = 650;
+						camFollow.y = 280;		
+						FlxTween.tween(camHUD, {alpha: 0}, 0.3, {
+						});
+					case 286:
+						FlxTween.tween(camHUD, {alpha: 1}, 0.3, {
+						});
+					case 287:
+						defaultCamZoom = 0.8;
+						danc = false;
+						isCameraOnForcedPos = false;
+						eziliDance2.alpha = 0;
+						dad.alpha = 1;
+					case 335:
+						bfShouldDance = false;
+						boyfriend.singDuration = 8;
+					case 336:
+						boyfriend.playAnim('exit', true);
+						FlxG.sound.play(Paths.sound('Exit', 'shared'));
+						//leave lol
+				}
+		}
 	}
 
 	public function callOnLuas(event:String, args:Array<Dynamic>):Dynamic {

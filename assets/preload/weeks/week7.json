@@ -1,7 +1,7 @@
 {
 	"songs": [
-		["OnTheHook", "dad", [195, 195, 195]],
-		["Octo-Amazone", "dad", [195, 195, 195]]
+		["On-The-Hook", "ezili", [89, 52, 104]],
+		["Octo-Amazone", "ezili", [89, 52, 104]]
 	],
 
 	"weekCharacters": [
@@ -12,7 +12,7 @@
 
 	"weekBackground": "stage",
 
-	"storyName": "inkling battle",
+	"storyName": "Don't Get Cooked",
 	"weekBefore": "week6",
 	"weekName": "Week 7",
 	"startUnlocked": true,

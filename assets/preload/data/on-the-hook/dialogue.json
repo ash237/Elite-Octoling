@@ -1,0 +1,60 @@
+{
+	"dialogue": [
+		{
+			"speed": 0.05,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "What do you think you're doing here?"
+		},
+		{
+			"speed": 0.085,
+			"portrait": "bf-agent",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "I...uhhhh..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "bf-agent",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "I heard you octarians were master musicians, and so I came here to hear it for myself."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "bf-agent",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "I'm big into music."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "What a blatant and obvious lie."
+		},
+		{
+			"speed": 0.23,
+			"portrait": "bf-agent",
+			"boxState": "normal",
+			"expression": "shock",
+			"text": "..."
+		},
+		{
+			"speed": 0.045,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "thought",
+			"text": "However, it's been a remarkably boring day..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "smile",
+			"text": "Show me if you can sing!"
+		}
+	]
+}

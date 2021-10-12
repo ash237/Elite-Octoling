@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Upper_Bop_B.png">
+	<!-- Created with Adobe Animate version 19.2.1.408 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Upper Crowd Bob0000" x="9" y="9" width="2166" height="323" frameX="0" frameY="-5" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0001" x="9" y="9" width="2166" height="323" frameX="0" frameY="-5" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0002" x="9" y="337" width="2164" height="325" frameX="-1" frameY="-3" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0003" x="9" y="337" width="2164" height="325" frameX="-1" frameY="-3" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0004" x="9" y="667" width="2163" height="326" frameX="-2" frameY="-2" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0005" x="9" y="667" width="2163" height="326" frameX="-2" frameY="-2" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0006" x="9" y="998" width="2161" height="328" frameX="-3" frameY="0" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0007" x="9" y="998" width="2161" height="328" frameX="-3" frameY="0" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0008" x="9" y="998" width="2161" height="328" frameX="-3" frameY="0" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0009" x="9" y="998" width="2161" height="328" frameX="-3" frameY="0" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0010" x="9" y="998" width="2161" height="328" frameX="-3" frameY="0" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0011" x="9" y="998" width="2161" height="328" frameX="-3" frameY="0" frameWidth="2166" frameHeight="328"/>
+	<SubTexture name="Upper Crowd Bob0012" x="9" y="998" width="2161" height="328" frameX="-3" frameY="0" frameWidth="2166" frameHeight="328"/>
+</TextureAtlas>

@@ -1,0 +1,133 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				-3
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt",
+			"indices": [],
+			"name": "p3_idle"
+		},
+		{
+			"offsets": [
+				49,
+				-13
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "p2_left"
+		},
+		{
+			"offsets": [
+				-37,
+				-38
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "p2_right"
+		},
+		{
+			"offsets": [
+				-10,
+				-1
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "p2_down"
+		},
+		{
+			"offsets": [
+				68,
+				2
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "p2_up"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "p2_idle"
+		},
+		{
+			"offsets": [
+				147,
+				-22
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT-alt",
+			"indices": [],
+			"name": "p3_left"
+		},
+		{
+			"offsets": [
+				-39,
+				-5
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT-alt",
+			"indices": [],
+			"name": "p3_right"
+		},
+		{
+			"offsets": [
+				-15,
+				-50
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN-alt",
+			"indices": [],
+			"name": "p3_down"
+		},
+		{
+			"offsets": [
+				118,
+				15
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP-alt",
+			"indices": [],
+			"name": "p3_up"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Ezili",
+	"position": [
+		-100,
+		-120
+	],
+	"healthicon": "ezili",
+	"flip_x": false,
+	"healthbar_colors": [
+		175,
+		102,
+		206
+	],
+	"camera_position": [
+		20,
+		85
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

@@ -1,0 +1,74 @@
+{
+	"dialogue": [
+		{
+			"speed": 0.05,
+			"portrait": "bf-agent",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "Hey, that was pretty good, I'm impressed."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "smile",
+			"text": "You better be!"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "Anyway, it's time to get rid of you."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "bf-agent",
+			"boxState": "angry",
+			"expression": "shock",
+			"text": "!!"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "octoling",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "Oh come on, that was nothing."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "trooper",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "One more!"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "octoling",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "One more!"
+		},
+		{
+			"speed": 0.35,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "thought",
+			"text": "..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "thought",
+			"text": "Alright, one more it is."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "ezili",
+			"boxState": "normal",
+			"expression": "smile",
+			"text": "Keep up the pace! If you don't, I might change my mind."
+		}
+	]
+}

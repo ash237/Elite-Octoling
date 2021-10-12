@@ -1,0 +1,37 @@
+{
+	"dialogue_pos": "right",
+	"position": [
+		0,
+		0
+	],
+	"scale": 1,
+	"animations": [
+		{
+			"anim": "talk",
+			"loop_offsets": [
+				72,
+				-130
+			],
+			"idle_offsets": [
+				72,
+				-130
+			],
+			"loop_name": "Agent40",
+			"idle_name": "Agent40"
+		},
+		{
+			"loop_name": "Agent4_Shook",
+			"idle_offsets": [
+				70,
+				-130
+			],
+			"idle_name": "Agent4_Shook",
+			"anim": "shock",
+			"loop_offsets": [
+				70,
+				-130
+			]
+		}
+	],
+	"image": "portraits"
+}

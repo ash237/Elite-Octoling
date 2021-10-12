@@ -157,7 +157,11 @@ class StoryMenuState extends MusicBeatState
 
 		add(bgYellow);
 		add(bgSprite);
-		add(grpWeekCharacters);
+		//add(grpWeekCharacters);
+
+		var splat:FlxSprite = new FlxSprite(0, 60).loadGraphic(Paths.image('splatoon'));
+		splat.screenCenter(X);
+		add(splat);
 
 		var tracksSprite:FlxSprite = new FlxSprite(FlxG.width * 0.07, bgSprite.y + 435).loadGraphic(Paths.image('Menu_Tracks'));
 		tracksSprite.antialiasing = ClientPrefs.globalAntialiasing;
